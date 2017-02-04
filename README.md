@@ -7,4 +7,5 @@ Deliverables
 3. Software artifacts 
 4. Evaluation of the developed software: Demo (Video or URL) 
 5. Final Presentatio
-![Screenshot](http://)
+
+![Screenshot](http://https://cloud.githubusercontent.com/assets/19613306/22619178/44d8ca3c-eaef-11e6-92ab-2778f3623527.png)
