@@ -26,7 +26,7 @@ First thing to do is to find out your ConsumerKey, ConsumerSecret, AccessToken a
 ```
 With the ConfigurationBuilder, a TwitterStream instance can be created. By creating a TwitterStream instance, twitter4j creates a Thread consuming the Stream. The StatusListener reacts, when certain requirements are met. There requirements can be set in the FilterQuery, for example a certain hashtag or location. Example code can be found here: http://twitter4j.org/en/code-examples.html#streaming.
 
-## Pushing to Message Hub
+## Apache Kafka
 
 This application uses the Apache Kafka library since Message Hub is based on Apache Kafka.
 
