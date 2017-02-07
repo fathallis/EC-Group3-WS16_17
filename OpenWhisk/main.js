@@ -2,8 +2,8 @@ function myAction(arg) {
 
     var Cloudant = require('cloudant');
 
-    var sUsername = "befe31f0-cd56-4695-958c-05e0d8afe51f-bluemix";
-    var sPassword  = "7846540341ad33b35d700c012312a05301940a7c60cbab1493064b81d1b49f06";
+    var sUsername = ""; // insert Username provided by CloudantDB Service Credentials
+    var sPassword  = ""; // insert Password provided by CloudantDB Service Credentials
 
     console.log('Input Data: ' + JSON.stringify(arg));
 
