@@ -2,7 +2,7 @@
 
 # Introduction / Challenge
 
-In this repository you can find the result for the Assignement of the course Enterprise Computing at TU Berlin. As a Group of four our task was to rebuild a AWS serverless reference architecture for Real-time Stream Processing on either IBM Bluemix or Google Cloud Platform. Because of the work with IBM Bluemix during the exercises of the Enterprise Computing course we decided to implement our solution with it. Also there were not enough services provided by the Google Cloud Platform to fully reimplement the reference architecture.
+In this repository you can find the result for the Assignment of the course Enterprise Computing at TU Berlin. As a Group of four our task was to rebuild an AWS serverless reference architecture for Real-time Stream Processing on either IBM Bluemix or Google Cloud Platform. Because of the work with IBM Bluemix during the exercises of the Enterprise Computing course we decided to implement our solution with it. Also there were not enough services provided by the Google Cloud Platform to fully reimplement the reference architecture (Google Cloud Function is in alpha and our whitelist request remained unanswered).
 
 # AWS Serverless Reference Architecture: Real-time Stream Processing
 
