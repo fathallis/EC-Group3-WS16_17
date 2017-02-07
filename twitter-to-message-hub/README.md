@@ -1,74 +1,38 @@
-# IBM Message Hub Kafka Java console sample application
-This Java console application demonstrates how to connect to [IBM Message Hub](https://console.ng.bluemix.net/docs/services/MessageHub/index.html), send and receive messages using the [Kafka](https://kafka.apache.org) Java API. It also shows how to create and list topics using the Message Hub Admin REST API.
+# Twitter to Message Hub Java Application
 
-It can be run locally on your machine or deployed into [IBM Bluemix](https://console.ng.bluemix.net/).
+## General
 
-__Important Note__: This sample creates on your behalf a topic named `kafka-java-console-sample-topic` with one partition - this will incur a fee if the topic does not already exist on your account.
+This Java application is basically a deriviation of the sample application on how to connect to Message Hub provided by IBM (https://github.com/ibm-messaging/message-hub-samples). 
 
-## Global Prerequisites
-To build and run the sample, you must have the following installed:
-* [git](https://git-scm.com/)
-* [Gradle](https://gradle.org/)
-* Java 7+
-* [Message Hub Service Instance](https://console.ng.bluemix.net/catalog/services/message-hub/) provisioned in [IBM Bluemix](https://console.ng.bluemix.net/)
+The following chapters briefly describe, how to use the Twitter API for Java Applications and how to set up your Java Application in order to push messages to Message Hub. 
 
-## Prerequisites (Bluemix)
-* [Cloud Foundry Command Line Interface](https://github.com/cloudfoundry/cli/releases) installed
+Mostly all of the implementations can be found in "ProducerRunnable.java".
 
-## Running the Build Script
-Run the following commands on your local machine, after the prerequisites for your environment have been completed:
+## Twitter API (twitter4j)
+
+In order to use the Twitter API, the twitter4j library must be installted: http://twitter4j.org/en/index.html
+
+Keywords for this are: ConfigurationBuilder, TwitterStream, StatusListener and FilterQuery.
+
+First thing to do is to find out your ConsumerKey, ConsumerSecret, AccessToken and AccessTokenSecret porvided by your twitter account. You need those to set up the ConfigurationBuilder.
+
 ```shell
-gradle clean && gradle build
- ```
+		ConfigurationBuilder cb = new ConfigurationBuilder();
+		cb.setDebugEnabled(true);
+		cb.setOAuthConsumerKey(""); //insert Consumer Key provided by your Message Hub instance credentials
+		cb.setOAuthConsumerSecret(""); //insert Consumer Secret provided by your Message Hub instance credentials
+		cb.setOAuthAccessToken(""); //insert Access Token provided by your Message Hub instance credentials
+		cb.setOAuthAccessTokenSecret(""); //insert Access Token Secret provided by your Message Hub instance credentials
+```
+With the ConfigurationBuilder, a TwitterStream instance can be created. By creating a TwitterStream instance, twitter4j creates a Thread consuming the Stream. The StatusListener reacts, when certain requirements are met. There requirements can be set in the FilterQuery, for example a certain hashtag or location. Example code can be found here: http://twitter4j.org/en/code-examples.html#streaming.
 
-## Running the Sample (Local)
-Once built, to run the sample, execute the following command:
+## Pushing to Message Hub
+
+This application uses the Apache Kafka library since Message Hub is based on Apache Kafka.
+
+There are two ways to run the application. First way is to run it locally and push messages from you desktop to the Message Hub. Therfore your credentials of the Message Hub instance in your IBM Bluemix environment have to be provided. In the Git repository provided at the beginning of this file you see, where you can find your credentials. Once you have figured out you credentials, you need to run your application with this command:
+
 ```shell
 java -jar build/libs/kafka-java-console-sample-2.0.jar <kafka_brokers_sasl> <kafka_admin_url> <api_key>
 ```
-
-To find the values for `<kafka_brokers_sasl>`, `<kafka_admin_url>` and `<api_key>`, access your Message Hub instance in Bluemix, go to the `Service Credentials` tab and select the `Credentials` you want to use.
-
-__Note__: `<kafka_brokers_sasl>` must be a single string enclosed in quotes. For example: `"host1:port1,host2:port2"`. We recommend using all the Kafka hosts listed in the `Credentials` you selected.
-
-Alternatively, you can run only the producer or only the consumer by respectively adding `-producer` or `-consumer`  to the command above.
-
-The sample will run indefinitely until interrupted. To stop the process, use `Ctrl+C`, for example.
-
-## Running the Sample (Bluemix)
-Ensure that the previous `gradle build` command has produced a zip file artifact under `build/distributions`.
-
-Open the `manifest.yml` file and rename the `"Message Hub-CHANGEME"` entry to that of your own
-Message Hub Service Instance name.
-
-Connect to Bluemix with the Cloud Foundry Command Line Interface, then run the following command in
-the same directory as the `manifest.yml` file:
-```shell
-cf push
-```
-
-__Note:__ The Bluemix distribution will automatically update the required files for you at runtime,
-using the `VCAP_SERVICES` information provided by Bluemix.
-
-## Sample Output
-Below is a snippet of the output generated by the sample:
-
-```
-[2016-11-30 17:30:53,492] INFO Running in local mode. (com.messagehub.samples.MessageHubConsoleSample)
-[2016-11-30 17:30:53,492] INFO Updating JAAS configuration (com.messagehub.samples.MessageHubConsoleSample)
-[2016-11-30 17:30:53,506] INFO Kafka Endpoints: kafka01-prod01.messagehub.services.us-south.bluemix.net:9093,kafka02-prod01.messagehub.services.us-south.bluemix.net:9093,kafka03-prod01.messagehub.services.us-south.bluemix.net:9093,kafka04-prod01.messagehub.services.us-south.bluemix.net:9093,kafka05-prod01.messagehub.services.us-south.bluemix.net:9093 (com.messagehub.samples.MessageHubConsoleSample)
-[2016-11-30 17:30:53,506] INFO Admin REST Endpoint: https://kafka-admin-prod01.messagehub.services.us-south.bluemix.net:443 (com.messagehub.samples.MessageHubConsoleSample)
-[2016-11-30 17:30:53,506] INFO Creating the topic kafka-java-console-sample-topic (com.messagehub.samples.MessageHubConsoleSample)
- (com.messagehub.samples.MessageHubConsoleSample)e :{}
-[2016-11-30 17:30:54,947] INFO Admin REST Listing Topics: [{"name":"kafka-java-console-sample-topic","partitions":1,"retentionMs":"86400000","markedForDeletion":false}] (com.messagehub.samples.MessageHubConsoleSample)
-[2016-11-30 17:30:55,952] INFO [Partition(topic = kafka-java-console-sample-topic, partition = 0, leader = 0, replicas = [0,1,4,], isr = [0,4,1,]] (com.messagehub.samples.ConsumerRunnable)
-[2016-11-30 17:30:55,953] INFO class com.messagehub.samples.ConsumerRunnable is starting. (com.messagehub.samples.ConsumerRunnable)
-[2016-11-30 17:30:57,023] INFO [Partition(topic = kafka-java-console-sample-topic, partition = 0, leader = 0, replicas = [0,1,4,], isr = [0,4,1,]] (com.messagehub.samples.ProducerRunnable)
-[2016-11-30 17:30:57,024] INFO MessageHubConsoleSample will run until interrupted. (com.messagehub.samples.MessageHubConsoleSample)
-[2016-11-30 17:30:57,024] INFO class com.messagehub.samples.ProducerRunnable is starting. (com.messagehub.samples.ProducerRunnable)
-[2016-11-30 17:30:58,018] INFO Message produced, offset: 0 (com.messagehub.samples.ProducerRunnable)
-[2016-11-30 17:30:58,956] INFO No messages consumed (com.messagehub.samples.ConsumerRunnable)
-[2016-11-30 17:31:00,301] INFO Message consumed: ConsumerRecord(topic = kafka-java-console-sample-topic, partition = 0, offset = 1, CreateTime = 1480527060022, checksum = 1906962734, serialized key size = 3, serialized value size = 25, key = key, value = This is a test message #1) (com.messagehub.samples.ConsumerRunnable)
-[2016-11-30 17:31:00,397] INFO Message produced, offset: 1 (com.messagehub.samples.ProducerRunnable)
-[2016-11-30 17:31:02,550] INFO Message consumed: ConsumerRecord(topic = kafka-java-console-sample-topic, partition = 0, offset = 2, CreateTime = 1480527062401, checksum = 3801731428, serialized key size = 3, serialized value size = 25, key = key, value = This is a test message #2) (com.messagehub.samples.ConsumerRunnable)
-```
+The second way to run your application is to push it into IBM Bluemix and connect your application to IBM Message Hub via the web console. In order to connect the service to your application, you need to go to your MessageHub instance and connect your application by selecting it. You can test your application easily by implement a consumer, which reads all filtered Twitter messages sent into the Message Hub. The consumer application can then be run locally. More informations can be found on the provided Git repository at the beginning.
