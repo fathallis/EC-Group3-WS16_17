@@ -14,15 +14,15 @@ All informations can be found on this website: http://www.allthingsdistributed.c
 
 # Result: Real-time Stream Processing on IBM Bluemix
 
-The following picture shows a serverless architecture for Real-time Stream Procecessing built on IBM Bluemix: 
+The following picture shows a serverless architecture for Real-time Stream Processing built on IBM Bluemix: 
 
 ![Screenshot](https://cloud.githubusercontent.com/assets/19613306/22619178/44d8ca3c-eaef-11e6-92ab-2778f3623527.png)
 
-Similar to AWS Kinesis we used IBM Message Hub to create a stream or queue, where we can push twitter messages into. In order to do so we needed to implement an application (Java), which uses the twitter API to filter messages for specific content (hashtags). The application then pushs the filteres messages with several other informations like time and username into the Message Hub. 
+Similar to AWS Kinesis we used IBM Message Hub to create a stream or queue, where we can push Twitter messages into. In order to do so we needed to implement an application (Java), which uses the Twitter Stream API to filter messages for specific content (hashtags). The application then pushs the filtered messages with several other information like timestamp and username into the Message Hub. 
 
-As soon as a message/ messages arrive/s into the Message Hub, a OpenWhisk (OW) function (implemented in node.js) is triggered. OW does basically the same as AWS Lambda. By triggering the OW function, Message Hub automatically passes the message/s (JSON) in the queue to the OW fucntion. The OW function has then the task to parse the delivered messages and store them into CloudantDB, a NoSQL Storage service of IBM Bluemix. The messages are concatenated to the existing table of messages in  CoudantDB.
+As soon as a message/ messages arrive/s into the Message Hub, an OpenWhisk (OW) function (implemented in node.js) is triggered. OW does basically the same as AWS Lambda. By triggering the OW function, Message Hub automatically passes the message/s (JSON) in the queue to the OW fucntion. The OW function has then the task to parse the delivered messages and store them into CloudantDB, a NoSQL Storage service of IBM Bluemix. The messages are appended to the existing table of messages in CloudantDB.
 
-By connecting CloudantDB with DashDB for Analytics, activities and transactions in CloudantDB can be tracked and monitored. DashDB, which is a SQL Cloud Storage Service of the IBM Bluemix Platform, pulls data from the CloudantDB and creates a warehouse, where the data can be analysed.
+By connecting CloudantDB with dashDB for Analytics, activities and transactions in CloudantDB can be tracked and monitored. DashDB, which is a SQL Cloud Storage Service of the IBM Bluemix Platform, pulls data from the CloudantDB and creates a warehouse, where the data can be analysed.
 
 It was not possible to use the Oject Storage Service of IBM Bluemix with a trial student account. Therefore something equal to AWS S3 could not be implemented. 
 
