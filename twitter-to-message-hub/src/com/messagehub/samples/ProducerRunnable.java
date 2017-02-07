@@ -61,10 +61,10 @@ public class ProducerRunnable implements Runnable {
 
 		ConfigurationBuilder cb = new ConfigurationBuilder();
 		cb.setDebugEnabled(true);
-		cb.setOAuthConsumerKey("KIn0TDQjP5nlU5vq91ab22XEY");
-		cb.setOAuthConsumerSecret("AHpSEBytqN6P6urK7WA26vqyEP1mAmiY6ry3c7z6WkuD3pOkyN");
-		cb.setOAuthAccessToken("816409848711614464-lSWMfPONNlgT0LVFqhD3DmdVYSjYeb3");
-		cb.setOAuthAccessTokenSecret("aGcq9GV399X60GP1O9hkv01QR3FowSjqmYFyT6lDDbjqB");
+		cb.setOAuthConsumerKey(""); //insert Consumer Key provided by your Message Hub instance credentials
+		cb.setOAuthConsumerSecret(""); //insert Consumer Secret provided by your Message Hub instance credentials
+		cb.setOAuthAccessToken(""); //insert Access Token provided by your Message Hub instance credentials
+		cb.setOAuthAccessTokenSecret(""); //insert Access Token Secret provided by your Message Hub instance credentials
 
 		TwitterStream twitterStream = new TwitterStreamFactory(cb.build()).getInstance();
 
