@@ -55,8 +55,6 @@ public class ProducerRunnable implements Runnable {
 
 	@Override
 	public void run() {
-		// Simple counter for messages sent
-		int producedMessages = 0;
 		logger.log(Level.INFO, ProducerRunnable.class.toString() + " is starting.");
 
 		ConfigurationBuilder cb = new ConfigurationBuilder();
