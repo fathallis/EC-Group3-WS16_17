@@ -2,19 +2,19 @@
 
 Figured out how to use 3rd party node modules within OpenWhisk:
 
-  Needed to access Object Storage or CloudantDB within OpenWhisk function
+    Needed to access Object Storage or CloudantDB within OpenWhisk function
   
-Solution: 
+    Solution: 
 
-  Local development of OpenWhisk function 
+        Local development of OpenWhisk function 
   
-  Define OpenWhisk function structure + node module dependencies in package.json
+        Define OpenWhisk function structure + node module dependencies in package.json
   
-  Locally download necessary node modules
+        Locally download necessary node modules
   
-  Zip everything
+        Zip everything
   
-  Create OpenWhisk action via OpenWhisk CLI which will upload the whole json file
+        Create OpenWhisk action via OpenWhisk CLI which will upload the whole json file
   
   
 Decided not to use ObjectStorage, because it is not possible to load a file and modify it within OpenWhisk function
