@@ -6,7 +6,7 @@ In this repository you can find the result for the Assignment of the course Ente
 
 # AWS Serverless Reference Architecture: Real-time Stream Processing
 
-![alt tag](https://github.com/fathallis/EC-Group3-WS16_17/blob/master/aws-serverless-streamprocessing.png)
+![alt tag](https://cloud.githubusercontent.com/assets/23037714/22731047/97400040-ede9-11e6-8edb-bf801c778672.png)
 
 All informations can be found on this website: http://www.allthingsdistributed.com/2016/06/aws-lambda-serverless-reference-architectures.html
 
